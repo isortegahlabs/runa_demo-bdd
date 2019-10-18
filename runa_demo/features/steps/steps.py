@@ -1,5 +1,6 @@
 from behave import given, then, when, step
 from runa_demo.pages.LoginPage import LoginPage
+from runa_demo.pages.NominaPage import NominaPage
 import time
 
 
@@ -24,19 +25,37 @@ def step_wait_for_visibility(context, element):
     context.element = element
     loginpage = LoginPage(context)
     loginpage.wait_for_element_clickable(*loginpage.locator_map[element])
-    # try:
-    #     wait = WebDriverWait(context.browser, 10, 1)
-    #     element = wait.until(EC.element_to_be_clickable((By.ID, 'email')))
-    # except BaseException:
-    #     print("algo")
-    # else:
-    #     context.browser.find_element(By.ID, 'email').clear()
 
 
 @when(u'we make login successful')
 def step_login(context):
     loginpage = LoginPage(context)
     loginpage.login(context.username, context.password)
+
+
+@when(u'we wait for the "{element}" element of modal')
+def step_wait_for_visibility(context, element):
+    nominapage = NominaPage(context)
+    nominapage.wait_for_element_clickable(*nominapage.locator_map[element])
+
+
+@when(u'we close the modal for change the password')
+def step_close_modal_change_password(context):
+    nominapage = NominaPage(context)
+    nominapage.close_modal_change_password()
+
+
+@when(u'we create a new nomina manual')
+def step_createnomina(context):
+    nominapage = NominaPage(context)
+    nominapage.new_nomina()
+
+
+@when(u'we are looking for the payroll group "{group}"')
+def step_search_nomina_group(context, group):
+    nominapage = NominaPage(context)
+    nominapage.search_nomina_group(group)
+
 
 @then('')
 def simpl_step(context):
