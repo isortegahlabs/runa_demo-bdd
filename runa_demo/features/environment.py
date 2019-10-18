@@ -6,19 +6,14 @@ from os import makedirs
 from os.path import isdir
 from logging import getLogger, config
 from runa_demo.helpers import constants
-
-active_tag_value_provider = {
-    "config_0": False
-}
-
-active_tag_matcher = ActiveTagMatcher(active_tag_value_provider)
+from selenium import webdriver
 
 
 def before_all(context):
-    userdata = context.config.userdata
-    context.config_0 = userdata.get('config_0', 'False')
-    logger_type = userdata.get('logger', 'file_logger')
-    context.logger = setup_logger(logger_type)
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.add_argument("--start-maximized")
+    context.browser = webdriver.Chrome(chrome_options=chrome_options)
+    context.browser.implicitly_wait(10)
 
 
 def before_feature(context, feature):
@@ -26,8 +21,7 @@ def before_feature(context, feature):
 
 
 def before_scenario(context, scenario):
-    if active_tag_matcher.should_exclude_with(scenario.effective_tags):
-        scenario.skip(reason="DISABLED ACTIVE-TAG")
+    pass
 
 
 def before_tag(context, tag):
