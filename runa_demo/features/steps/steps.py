@@ -57,6 +57,17 @@ def step_search_nomina_group(context, group):
     nominapage.search_nomina_group(group)
 
 
+@when(u'we select day "{date}"')
+def step_select_date(context, date):
+    nominapage = NominaPage(context)
+    nominapage.select_date(date)
+
+
+@when(u'select range of incidents "{start}" to "{end}"')
+def step_select_range_incidents(context, start, end):
+    nominapage = NominaPage(context)
+    nominapage.select_range_incidents(start, end)
+
 @then('')
 def simpl_step(context):
     pass
