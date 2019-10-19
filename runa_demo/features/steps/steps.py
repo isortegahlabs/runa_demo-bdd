@@ -68,6 +68,79 @@ def step_select_range_incidents(context, start, end):
     nominapage = NominaPage(context)
     nominapage.select_range_incidents(start, end)
 
+
+@when(u'select option comenzar')
+def step_select_comenzar(context):
+    nominapage = NominaPage(context)
+    nominapage.select_comenzar()
+    time.sleep(5)
+
+
+@when(u'open the detail of the first employee')
+def step_open_detail(context):
+    nominapage = NominaPage(context)
+    nominapage.open_detail_first_employee()
+    time.sleep(5)
+
+
+@when(u'modify the salary field with "{salary}" pesos')
+def step_modify_salary(context, salary):
+    nominapage = NominaPage(context)
+    nominapage.modify_salary(salary)
+
+
+@when(u'remove payroll')
+def step_select_comenzar(context):
+    nominapage = NominaPage(context)
+    nominapage.remove_payroll()
+
+
+@when(u'confirm delete payroll')
+def step_select_comenzar(context):
+    nominapage = NominaPage(context)
+    nominapage.confirm_remove_payroll()
+
+
+@when(u'save employee changes')
+def step_save_employee_changes(context):
+    nominapage = NominaPage(context)
+    nominapage.save_employee_changes()
+
+
+@when(u'open the detail of the third employee')
+def step_open_third_employee(context):
+    nominapage = NominaPage(context)
+    nominapage.open_detail_third_employee()
+
+
+@when(u'delete payroll employee')
+def step_delete_payroll_employee(context):
+    nominapage = NominaPage(context)
+    nominapage.delete_employee()
+
+
+@when(u'confirm delete payroll employee')
+def step_confirm_delete_payroll_employee(context):
+    nominapage = NominaPage(context)
+    nominapage.confirm_delete_employee()
+
+
+@when(u'continue step {step}')
+def step_continue_step_2(context, step):
+    nominapage = NominaPage(context)
+    nominapage.continue_step_2()
+
+@when(u'unselect all')
+def step_unselect_all(context):
+    nominapage = NominaPage(context)
+    nominapage.unselect_all()
+
+@when(u'select section calculate')
+def step_section_calculate(context):
+    nominapage = NominaPage(context)
+    nominapage.section_calculate()
+
+
 @then('')
 def simpl_step(context):
     pass
