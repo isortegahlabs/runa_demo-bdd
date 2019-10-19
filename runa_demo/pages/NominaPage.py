@@ -38,7 +38,9 @@ class NominaPage(BasePageObjectModel):
         "confirmdeleteemployee_btn": (By.XPATH, '/html/body/div[9]/div/div/div/div/button[2]'),
         "continue2_btn": (By.XPATH, '//*[@id="root"]/div/div/div/div/section/div[3]/div/div[3]/button[2]'),
         "selectall_chk": (By.ID, 'selectMainCheckbox'),
-        "sectioncalculate_elm": (By.XPATH, '//*[@id="root"]/div/div/div/div/section/div[2]/article[1]/h3/strong')
+        "sectioncalculate_elm": (By.XPATH, '//*[@id="root"]/div/div/div/div/section/div[2]/article[1]/h3/strong'),
+        "admin_mnu": (By.XPATH, '//*[@id="root"]/div/div/div/nav/div[2]/div[2]/div[2]/div[1]'),
+        "closesession_opt": (By.XPATH, '//*[@id="root"]/div/div/div/nav/div[2]/div[2]/div[2]/div[2]/button')
     }
 
     def __init__(self, context):
@@ -121,6 +123,13 @@ class NominaPage(BasePageObjectModel):
 
     def confirm_remove_payroll(self):
         self.find_element(*self.locator_map["confirmdeletepayroll_btn"]).click()
+
+    def select_admin_menu(self):
+        self.find_element(*self.locator_map["admin_mnu"]).click()
+
+    def close_session(self):
+        self.find_element(*self.locator_map["closesession_opt"]).click()
+        time.sleep(5)
 
     def __get_month(self, date):
         arraydate = date.split("/")

@@ -99,6 +99,7 @@ def step_select_comenzar(context):
 def step_select_comenzar(context):
     nominapage = NominaPage(context)
     nominapage.confirm_remove_payroll()
+    time.sleep(3)
 
 
 @when(u'save employee changes')
@@ -134,6 +135,19 @@ def step_continue_step_2(context, step):
 def step_unselect_all(context):
     nominapage = NominaPage(context)
     nominapage.unselect_all()
+
+
+@when(u'select option ADMINISTRADOR')
+def step_section_calculate(context):
+    nominapage = NominaPage(context)
+    nominapage.select_admin_menu()
+
+
+@when(u'select option CERRAR SESION')
+def step_section_close(context):
+    nominapage = NominaPage(context)
+    nominapage.close_session()
+
 
 @when(u'select section calculate')
 def step_section_calculate(context):

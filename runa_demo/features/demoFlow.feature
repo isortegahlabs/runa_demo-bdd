@@ -26,3 +26,5 @@ Scenario:
   And select section calculate
   And remove payroll
   And confirm delete payroll
+  And select option ADMINISTRADOR
+  And select option CERRAR SESION
