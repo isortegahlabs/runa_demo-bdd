@@ -19,5 +19,11 @@ class BasePageObjectModel(object):
     def find_element(self, *locator):
         return self.browser.find_element(*locator)
 
+    def find_elements(self, *locator):
+        return self.browser.find_elements(*locator)
+
     def refresh(self):
         self.browser.refresh()
+
+    def get_text_element(self, *locator):
+        return self.browser.find_element(*locator).text

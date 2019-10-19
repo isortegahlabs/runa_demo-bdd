@@ -40,7 +40,15 @@ class NominaPage(BasePageObjectModel):
         "selectall_chk": (By.ID, 'selectMainCheckbox'),
         "sectioncalculate_elm": (By.XPATH, '//*[@id="root"]/div/div/div/div/section/div[2]/article[1]/h3/strong'),
         "admin_mnu": (By.XPATH, '//*[@id="root"]/div/div/div/nav/div[2]/div[2]/div[2]/div[1]'),
-        "closesession_opt": (By.XPATH, '//*[@id="root"]/div/div/div/nav/div[2]/div[2]/div[2]/div[2]/button')
+        "closesession_opt": (By.XPATH, '//*[@id="root"]/div/div/div/nav/div[2]/div[2]/div[2]/div[2]/button'),
+
+        "activepayroll_title": (By.CLASS_NAME, 'active-payrolls-subtitle'),
+        "assertpayrollname": (By.XPATH, '//*[@class="payroll-card-title"]/h4'),
+        "assertsectioncalculate": (By.XPATH, '//*[@id="root"]/div/div/div/div/section/nav/div/h1'),
+        "assertsalaryfirstemployee": (By.XPATH, '//*[@id="root"]/div/div/div/div/section/div[3]/div/div[2]/div['
+                                                '1]/div[1]/table/tbody/tr[1]/td[5]'),
+        "assertcountemployees": (By.XPATH, '//*[@id="root"]/div/div/div/div/section/div[3]/div/div[2]/div[1]/div['
+                                           '1]/table/tbody/tr')
     }
 
     def __init__(self, context):
@@ -72,11 +80,9 @@ class NominaPage(BasePageObjectModel):
         self.find_element(*self.locator_map["endday"]).click()
         time.sleep(1)
         self.find_element(*self.locator_map["savepayroll_btn"]).click()
-        time.sleep(4)
 
     def select_comenzar(self):
         self.find_element(*self.locator_map["start_btn"]).click()
-        time.sleep(15)
 
     def open_detail_first_employee(self):
         self.find_element(*self.locator_map["first_employee_txt"]).click()
@@ -90,11 +96,9 @@ class NominaPage(BasePageObjectModel):
         self.find_element(*self.locator_map["editsalary_input"]).send_keys(Keys.SHIFT
                                                                            + Keys.CONTROL + Keys.ARROW_LEFT)
         self.find_element(*self.locator_map["editsalary_input"]).send_keys(salary + Keys.ENTER)
-        time.sleep(5)
 
     def save_employee_changes(self):
         self.find_element(*self.locator_map["savesalary_btn"]).click()
-        time.sleep(3)
 
     def open_detail_third_employee(self):
         self.find_element(*self.locator_map["third_employee_txt"]).click()
@@ -108,7 +112,6 @@ class NominaPage(BasePageObjectModel):
         self.find_element(*self.locator_map["confirmdeleteemployee_btn"]).click()
         time.sleep(3)
         self.refresh()
-        time.sleep(5)
 
     def continue_step_2(self):
         self.find_element(*self.locator_map["continue2_btn"]).click()
@@ -129,7 +132,9 @@ class NominaPage(BasePageObjectModel):
 
     def close_session(self):
         self.find_element(*self.locator_map["closesession_opt"]).click()
-        time.sleep(5)
+
+    def count_elements(self, locator):
+        return len(self.find_elements(*self.locator_map[locator]))
 
     def __get_month(self, date):
         arraydate = date.split("/")

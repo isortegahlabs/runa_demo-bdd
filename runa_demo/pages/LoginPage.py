@@ -10,7 +10,8 @@ class LoginPage(BasePageObjectModel):
         "welcome_messaage": (By.CLASS_NAME, 'login-welcome-message'),
         "email": (By.ID, 'email'),
         "passwd": (By.ID, 'password'),
-        "login_btn": (By.XPATH, '//*[@id="root"]/div/div/div/form/button')
+        "login_btn": (By.XPATH, '//*[@id="root"]/div/div/div/form/button'),
+        "change_modal_password_title": (By.CLASS_NAME, 'change-password-modal-title')
     }
 
     def __init__(self, context):
@@ -20,4 +21,3 @@ class LoginPage(BasePageObjectModel):
         self.find_element(*self.locator_map['email']).send_keys(username)
         self.find_element(*self.locator_map['passwd']).send_keys(passwd)
         self.find_element(*self.locator_map['login_btn']).click()
-        time.sleep(5)

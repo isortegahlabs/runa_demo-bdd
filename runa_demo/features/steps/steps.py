@@ -15,49 +15,54 @@ def step_set_username_and_password(context, username, password):
     context.password = password
 
 
-@when(u'we visit the site')
+@when(u'visit the site')
 def step_visit_site(context):
     context.browser.get(context.urlBase)
 
 
-@when(u'we wait for the "{element}" element')
+@when(u'wait for the "{element}" element')
 def step_wait_for_visibility(context, element):
     context.element = element
     loginpage = LoginPage(context)
     loginpage.wait_for_element_clickable(*loginpage.locator_map[element])
 
+@when(u'wait for the "{element}" element in nomina page')
+def step_wait_for_visibility(context, element):
+    context.element = element
+    nominapage = NominaPage(context)
+    nominapage.wait_for_element_clickable(*nominapage.locator_map[element])
 
-@when(u'we make login successful')
+@when(u'make login successful')
 def step_login(context):
     loginpage = LoginPage(context)
     loginpage.login(context.username, context.password)
 
 
-@when(u'we wait for the "{element}" element of modal')
-def step_wait_for_visibility(context, element):
+@when(u'wait for the "{element}" element of modal')
+def step_wait_element_clickable(context, element):
     nominapage = NominaPage(context)
     nominapage.wait_for_element_clickable(*nominapage.locator_map[element])
 
 
-@when(u'we close the modal for change the password')
+@when(u'close the modal for change the password')
 def step_close_modal_change_password(context):
     nominapage = NominaPage(context)
     nominapage.close_modal_change_password()
 
 
-@when(u'we create a new nomina manual')
+@when(u'create a new nomina manual')
 def step_createnomina(context):
     nominapage = NominaPage(context)
     nominapage.new_nomina()
 
 
-@when(u'we are looking for the payroll group "{group}"')
+@when(u'looking for the payroll group "{group}"')
 def step_search_nomina_group(context, group):
     nominapage = NominaPage(context)
     nominapage.search_nomina_group(group)
 
 
-@when(u'we select day "{date}"')
+@when(u'select day "{date}"')
 def step_select_date(context, date):
     nominapage = NominaPage(context)
     nominapage.select_date(date)
@@ -73,14 +78,12 @@ def step_select_range_incidents(context, start, end):
 def step_select_comenzar(context):
     nominapage = NominaPage(context)
     nominapage.select_comenzar()
-    time.sleep(5)
 
 
 @when(u'open the detail of the first employee')
 def step_open_detail(context):
     nominapage = NominaPage(context)
     nominapage.open_detail_first_employee()
-    time.sleep(5)
 
 
 @when(u'modify the salary field with "{salary}" pesos')
@@ -155,11 +158,32 @@ def step_section_calculate(context):
     nominapage.section_calculate()
 
 
-@then('')
-def simpl_step(context):
-    pass
+@then(u'the login page is seen')
+def step_assert_login_page(context):
+    loginpage = LoginPage(context)
+    assert "¡Te ves radiante hoy!" in loginpage.get_text_element(*loginpage.locator_map["welcome_messaage"])
 
 
-@step('')
-def simpl_step(context):
-    pass
+@then(u'the login was successful')
+def step_assert_login_success(context):
+    loginpage = LoginPage(context)
+    assert "Por seguridad actualiza tu contraseña" in loginpage.get_text_element(*loginpage.locator_map["change_modal_password_title"])
+
+
+@then(u'payroll creation was successful')
+def step_assert_payroll_create(context):
+    nominapage = NominaPage(context)
+    assert "Nómina Semanal Automation" in \
+           nominapage.get_text_element(*nominapage.locator_map["assertpayrollname"])
+
+
+@then(u'the new salary is $5,000.00')
+def step_assert_edit_salary(context):
+    nominapage = NominaPage(context)
+    assert "$5,000.00" in \
+           nominapage.get_text_element(*nominapage.locator_map["assertsalaryfirstemployee"])
+
+@then(u'only 4 employees left')
+def step_assert_employees(context):
+    nominapage = NominaPage(context)
+    assert 8 == nominapage.count_elements("assertcountemployees")
