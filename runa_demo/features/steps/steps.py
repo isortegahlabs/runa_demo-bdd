@@ -102,7 +102,7 @@ def step_select_comenzar(context):
 def step_select_comenzar(context):
     nominapage = NominaPage(context)
     nominapage.confirm_remove_payroll()
-    time.sleep(3)
+    time.sleep(5)
 
 
 @when(u'save employee changes')
